@@ -1,3 +1,5 @@
+部分问题已在[test](https://github.com/Small-tailqwq/fix_Win11_24h2_RDC/tree/test) 分支进行测试。详见[issue](https://github.com/Small-tailqwq/fix_Win11_24h2_RDC/issues/1#issuecomment-2594356189) 。 
+
 # Fixing Screen Distortion Issues with Remote Desktop Connection on Windows 11 24H2
 
 After updating to Windows 11 24H2, there is a chance of screen distortion, including blocky distortion and striped distortion, when using Remote Desktop to connect to some older Windows servers.
