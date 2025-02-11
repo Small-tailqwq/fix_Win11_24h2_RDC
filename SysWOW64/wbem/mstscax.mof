@@ -1,0 +1,67 @@
+#pragma AUTORECOVER
+#pragma classflags("forceupdate")
+Qualifier Description : ToSubClass Amended;
+Qualifier Values : ToSubClass Amended;
+
+#pragma namespace("\\\\.\\root\\WMI")
+//
+// WPP Generated File
+// PDB:  y:\vbl_dev.obj.x86fre\TermSrv\client\lib\win32\objfre\i386\mstscax.pdb
+// PDB:  Last Updated :2006-3-1:0:51:13:91 (UTC) [binplace]
+//
+
+//ModuleName = TSClientActiveXControlTrace	 (Init called in Function WPP_CONTROL_ANNOTATION)
+[Dynamic,
+ Description("TS Client ActiveX Control Trace"),
+ guid("{DAA6CAF5-6678-43f8-A6FE-B40EE096E06E}"),
+ locale("MS\\0x409")]
+class TSClientActiveXControlTrace : EventTrace
+{
+    [Description ("Enable Flags") ,
+        ValueDescriptions{
+             "TS_TRACE_LEVEL_NRM Flag",
+             "TS_TRACE_LEVEL_ERROR Flag",
+             "TS_TRACE_LEVEL_ASSERT Flag"},
+        DefineValues{
+             "TS_TRACE_LEVEL_NRM",
+             "TS_TRACE_LEVEL_ERROR",
+             "TS_TRACE_LEVEL_ASSERT"},
+        Values{
+             "TS_TRACE_LEVEL_NRM",
+             "TS_TRACE_LEVEL_ERROR",
+             "TS_TRACE_LEVEL_ASSERT"},
+        ValueMap{
+             "0x00000001",
+             "0x00000002",
+             "0x00000004"}
+    ]
+    uint32 Flags;
+    [Description ("Levels") ,
+        ValueDescriptions{
+            "Abnormal exit or termination",
+            "Severe errors that need logging",
+            "Warnings such as allocation failure",
+            "Includes non-error cases",
+            "Detailed traces from intermediate steps" } ,
+         DefineValues{
+            "TRACE_LEVEL_FATAL",
+            "TRACE_LEVEL_ERROR",
+            "TRACE_LEVEL_WARNING",
+            "TRACE_LEVEL_INFORMATION",
+            "TRACE_LEVEL_VERBOSE" },
+        Values{
+            "Fatal",
+            "Error",
+            "Warning",
+            "Information",
+            "Verbose" },
+        ValueMap{
+            "0x1",
+            "0x2",
+            "0x3",
+            "0x4",
+            "0x5" },
+        ValueType("index")
+    ]
+    uint32 Level;
+};
