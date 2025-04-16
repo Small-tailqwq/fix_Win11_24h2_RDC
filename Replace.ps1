@@ -32,6 +32,42 @@ function Write-Message {
   }
 }
 
+# 检测是否在远程桌面会话中运行
+function Test-RemoteDesktopSession {
+  # 检查是否存在远程桌面会话
+  $SessionInfo = quser 2>$null
+  if ($?) {
+    # 过滤出远程会话(rdp)，不包括控制台会话
+    $RDPSessions = $SessionInfo | Select-String "rdp" -SimpleMatch
+    if ($RDPSessions) {
+      return $true
+    }
+  }
+    
+  # 使用环境变量检查
+  if ($env:SESSIONNAME -like "*RDP*") {
+    return $true
+  }
+    
+  # 检查当前会话类型
+  $isRemoteSession = (Get-Process -Id $PID).SessionId -ne 0 -and [System.Diagnostics.Process]::GetCurrentProcess().SessionId -ne 0
+  if ($isRemoteSession) {
+    return $true
+  }
+    
+  return $false
+}
+
+# 检查是否在远程桌面会话中运行，如果是则警告并退出
+if (Test-RemoteDesktopSession) {
+  $warnZh = "警告：检测到您正在通过远程桌面连接运行此脚本！`n`n这可能导致文件替换失败，因为正在使用的远程桌面组件无法被替换。`n`n请关闭远程桌面会话后，直接在目标设备上运行此脚本。"
+  $warnEn = "WARNING: You are running this script through a Remote Desktop connection!`n`nThis may cause file replacement failures because Remote Desktop components in use cannot be replaced.`n`nPlease close the Remote Desktop session and run this script directly on the target device."
+    
+  Write-Message -MessageZh $warnZh -MessageEn $warnEn -Color "Red"
+  Pause
+  Exit
+}
+
 # 创建备份文件夹和时间戳
 $BackupDir = Join-Path $ScriptDir "bak"
 $TimeStamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
